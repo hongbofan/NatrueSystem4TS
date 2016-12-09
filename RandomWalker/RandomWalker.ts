@@ -3,9 +3,9 @@ import {System} from "../Common/js/System";
 import {Paint} from "../Common/js/Paint";
 
 
-var system:System;
-var paint:Paint;
-var point: VectorPoint;
+let system:System;
+let paint:Paint;
+let point: VectorPoint;
 init();
 walk();
 function init(){
@@ -15,7 +15,7 @@ function init(){
   point = new VectorPoint(system.width/2,system.height/2);
 }
 function walk(){
-  point.move(new VectorPoint((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20));
+  point.add(new VectorPoint((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20));
   point.display(paint);
   setTimeout(walk, 0);
 }

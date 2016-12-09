@@ -12,7 +12,7 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
         point = new VectorPoint_1.VectorPoint(system.width / 2, system.height / 2);
     }
     function walk() {
-        point.move(new VectorPoint_1.VectorPoint((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20));
+        point.add(new VectorPoint_1.VectorPoint((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20));
         point.display(paint);
         setTimeout(walk, 0);
     }

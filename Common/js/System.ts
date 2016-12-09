@@ -7,4 +7,7 @@ export class System {
     this.width = canvas.width;
     this.height = canvas.height;
   }
+  clear(){
+    this.canvas.getContext("2d").clearRect(0,0,this.width,this.height);
+  }
 }

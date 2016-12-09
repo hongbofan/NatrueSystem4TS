@@ -8,7 +8,7 @@ define(["require", "exports"], function (require, exports) {
         VectorPoint.prototype.display = function (paint) {
             paint.beginPath().arc(this.x, this.y, 10, 0, 2 * Math.PI).fill();
         };
-        VectorPoint.prototype.move = function (p) {
+        VectorPoint.prototype.add = function (p) {
             this.x += p.x;
             this.y += p.y;
             return this;
