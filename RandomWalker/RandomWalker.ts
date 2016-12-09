@@ -1,14 +1,21 @@
 import {VectorPoint} from "../Common/js/VectorPoint";
+import {System} from "../Common/js/System";
+import {Paint} from "../Common/js/Paint";
 
-var canvas = <HTMLCanvasElement>document.getElementById("canvas")
-var ctx = canvas.getContext("2d");
-ctx.fillStyle = 'rgba(192, 80, 77, 0.1)';
 
-var point: VectorPoint = new VectorPoint(canvas.width/2,canvas.height/2);
-
+var system:System;
+var paint:Paint;
+var point: VectorPoint;
+init();
+walk();
+function init(){
+  system = new System(<HTMLCanvasElement>document.getElementById("canvas"));
+  paint = new Paint(system.canvas.getContext("2d"));
+  paint.setFillStyle('rgba(192, 80, 77, 0.1)');
+  point = new VectorPoint(system.width/2,system.height/2);
+}
 function walk(){
   point.move(new VectorPoint((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20));
-  point.display(ctx);
+  point.display(paint);
   setTimeout(walk, 0);
 }
-walk();

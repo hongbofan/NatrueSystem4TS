@@ -1,3 +1,4 @@
+import {Paint} from "./Paint";
 export class VectorPoint {
   x:number;//横坐标
   y:number;//纵坐标
@@ -5,12 +6,11 @@ export class VectorPoint {
     this.x = x;
     this.y = y;
   }
-
-  display(context2D:CanvasRenderingContext2D){
-    context2D.beginPath();
-    context2D.arc(this.x, this.y, 10, 0, 2 * Math.PI);
-    context2D.fill();
+  //画自身
+  display(paint:Paint){
+    paint.beginPath().arc(this.x, this.y, 10, 0, 2 * Math.PI).fill();
   }
+  //移动
   move(p: VectorPoint) {
     this.x += p.x;
     this.y += p.y;

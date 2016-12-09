@@ -5,10 +5,8 @@ define(["require", "exports"], function (require, exports) {
             this.x = x;
             this.y = y;
         }
-        VectorPoint.prototype.display = function (context2D) {
-            context2D.beginPath();
-            context2D.arc(this.x, this.y, 10, 0, 2 * Math.PI);
-            context2D.fill();
+        VectorPoint.prototype.display = function (paint) {
+            paint.beginPath().arc(this.x, this.y, 10, 0, 2 * Math.PI).fill();
         };
         VectorPoint.prototype.move = function (p) {
             this.x += p.x;
