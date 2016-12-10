@@ -17,10 +17,11 @@ function init(){
   paint = new Paint(system.canvas.getContext("2d"));
   paint.setFillStyle('rgba(192, 80, 77, 0.8)');
   for(let i = 0;i < number ;i++){
-    let location:VectorPoint = new VectorPoint(Util.randomNumber(10,200),Util.randomNumber(10,200));
-    let velocity:VectorPoint = new VectorPoint(Util.randomNumber(0,0.5),Util.randomNumber(0,0.5));
-    let acceleration:VectorPoint = new VectorPoint(Util.randomNumber(0,0.01),Util.randomNumber(0,0.01));
     let radius:number = Util.randomNumber(10,20);
+    let location:VectorPoint = new VectorPoint(Util.randomNumber(radius,system.width - radius),Util.randomNumber(radius,system.height - radius));
+    let velocity:VectorPoint = new VectorPoint(Util.randomNumber(-0.5,0.5),Util.randomNumber(-0.5,0.5));
+    let acceleration:VectorPoint = new VectorPoint(Util.randomNumber(-0.01,0.01),Util.randomNumber(-0.01,0.01));
+
     let ball = new Ball(location,velocity,acceleration,radius);
     balls.push(ball);
   }
