@@ -5,7 +5,11 @@ define(["require", "exports"], function (require, exports) {
             this.location = location;
             this.velocity = velocity;
             this.acceleration = acceleration;
+            this.destroy = false;
         }
+        NatrueObject.prototype.isDestroy = function () {
+            return this.destroy;
+        };
         NatrueObject.prototype.display = function (paint) {
             return this;
         };

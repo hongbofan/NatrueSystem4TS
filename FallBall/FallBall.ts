@@ -9,6 +9,7 @@ let system:System;
 let paint:Paint;
 let balls:NatrueObject[] = [];
 let number = 20;
+
 init();
 action();
 
@@ -25,9 +26,11 @@ function init(){
     let ball = new Ball(location,velocity,acceleration,radius);
     balls.push(ball);
   }
+  system.pushObjects(balls);
 }
 function action(){
   system.clear();
+  system.quadTree.refresh(null);
   for(let ball of balls){
     ball.collisionDetection(system);
     ball.move();

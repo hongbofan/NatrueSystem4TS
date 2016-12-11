@@ -25,6 +25,14 @@ define(["require", "exports", "./NatrueObject"], function (require, exports, Nat
                 this.velocity.y += this.acceleration.y;
                 this.velocity.y *= -1;
             }
+            var result = system.quadTree.retrieve(this);
+            for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
+                var ball = result_1[_i];
+                if (this.location.x + this.radius > ball.location.x + ball.radius) {
+                    this.velocity.x *= -1;
+                    ball.velocity.x *= -1;
+                }
+            }
             return this;
         };
         return Ball;

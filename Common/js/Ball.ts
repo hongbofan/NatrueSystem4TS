@@ -23,6 +23,13 @@ export class Ball extends NatrueObject{
         this.velocity.y += this.acceleration.y;//同上
         this.velocity.y *= -1;
       }
+      let result = system.quadTree.retrieve(this);
+      for(let ball of result){
+        if(this.location.x + this.radius > ball.location.x + ball.radius){
+          this.velocity.x *= -1;
+          ball.velocity.x *= -1;
+        }
+      }
       return this;
     }
 }

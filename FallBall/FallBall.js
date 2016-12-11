@@ -18,9 +18,11 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
             var ball = new Ball_1.Ball(location_1, velocity, acceleration, radius);
             balls.push(ball);
         }
+        system.pushObjects(balls);
     }
     function action() {
         system.clear();
+        system.quadTree.refresh(null);
         for (var _i = 0, balls_1 = balls; _i < balls_1.length; _i++) {
             var ball = balls_1[_i];
             ball.collisionDetection(system);
