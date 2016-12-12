@@ -28,8 +28,14 @@ export class QuadTree {
       let index = [];
       root = root || this;
       if(this.objects.length){
+        console.log(this.objects.length);
         for(let i = this.objects.length - 1;i >= 0;i--){
           let obj = this.objects[i];
+          console.log(i+","+obj);
+          console.log(obj == undefined);
+          if(obj == undefined){
+            continue;
+          }
           if(false){//死亡销毁
             //this.objects.splice(i,1);
           }else{

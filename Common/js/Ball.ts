@@ -25,9 +25,22 @@ export class Ball extends NatrueObject{
       }
       let result = system.quadTree.retrieve(this);
       for(let ball of result){
-        if(this.location.x + this.radius > ball.location.x + ball.radius){
-          this.velocity.x *= -1;
-          ball.velocity.x *= -1;
+        if(ball == undefined){
+          continue;
+        }
+        let dis = this.location.copySub(ball.location);
+        let sumRadius = this.radius + ball.radius;
+        //相交
+        if(sumRadius >= dis.getMag()){
+            //this.acceleration.x += this.acceleration.x;
+            this.velocity.x *= -1;
+            //this.acceleration.y += this.acceleration.y;
+            this.velocity.y *= -1;
+
+            //ball.acceleration.x += ball.acceleration.x;
+            ball.velocity.x *= -1;
+            //ball.acceleration.y += ball.acceleration.y;
+            ball.velocity.y *= -1;
         }
       }
       return this;

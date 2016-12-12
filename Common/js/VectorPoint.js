@@ -4,6 +4,7 @@ define(["require", "exports"], function (require, exports) {
         function VectorPoint(x, y) {
             this.x = x;
             this.y = y;
+            this.mag = this.getMag();
         }
         VectorPoint.prototype.display = function (paint) {
             paint.beginPath().arc(this.x, this.y, 10, 0, 2 * Math.PI).fill();
@@ -17,6 +18,9 @@ define(["require", "exports"], function (require, exports) {
             this.x -= p.x;
             this.y -= p.y;
         };
+        VectorPoint.prototype.copySub = function (p) {
+            return new VectorPoint(this.x - p.x, this.y - p.y);
+        };
         VectorPoint.prototype.mult = function (n) {
             this.x *= n;
             this.y *= n;
@@ -27,13 +31,21 @@ define(["require", "exports"], function (require, exports) {
                 this.y /= n;
             }
         };
-        VectorPoint.prototype.mag = function () {
+        VectorPoint.prototype.getMag = function () {
+            return Math.sqrt(this.x * this.x + this.y * this.y);
         };
         VectorPoint.prototype.setMag = function () {
         };
         VectorPoint.prototype.normalize = function () {
+            var m = this.getMag();
+            if (m != 0) {
+                return this.div(m);
+            }
         };
-        VectorPoint.prototype.limit = function () {
+        VectorPoint.prototype.limit = function (n) {
+            if (this.mag > n) {
+                this.mag = n;
+            }
         };
         VectorPoint.prototype.heading2D = function () {
         };

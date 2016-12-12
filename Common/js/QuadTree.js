@@ -13,8 +13,14 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
             var index = [];
             root = root || this;
             if (this.objects.length) {
+                console.log(this.objects.length);
                 for (var i = this.objects.length - 1; i >= 0; i--) {
                     var obj = this.objects[i];
+                    console.log(i + "," + obj);
+                    console.log(obj == undefined);
+                    if (obj == undefined) {
+                        continue;
+                    }
                     if (false) {
                     }
                     else {

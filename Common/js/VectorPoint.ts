@@ -2,9 +2,11 @@ import {Paint} from "./Paint";
 export class VectorPoint {
   x:number;//横坐标
   y:number;//纵坐标
+  mag:number;//向量长度
   constructor(x:number, y:number){
     this.x = x;
     this.y = y;
+    this.mag = this.getMag();
   }
   //画自身
   display(paint:Paint){
@@ -21,6 +23,9 @@ export class VectorPoint {
     this.x -= p.x;
     this.y -= p.y;
   }
+  copySub(p:VectorPoint){
+    return new VectorPoint(this.x - p.x,this.y - p.y);
+  }
   //乘以标量延伸向量
   mult(n:number){
     this.x *=n;
@@ -34,8 +39,8 @@ export class VectorPoint {
     }
   }
   //计算向量的长度
-  mag(){
-
+  getMag(){
+    return Math.sqrt(this.x*this.x+this.y*this.y);
   }
   //设置向量的长度
   setMag(){
@@ -43,11 +48,17 @@ export class VectorPoint {
   }
   //使其长度为1
   normalize(){
+    let m = this.getMag();
+    if(m!=0){
+      return this.div(m);
+    }
 
   }
   //限制向量的长度
-  limit(){
-
+  limit(n:number){
+    if(this.mag >n){
+      this.mag = n;
+    }
   }
   //计算向量的方向，用角度表示
   heading2D(){

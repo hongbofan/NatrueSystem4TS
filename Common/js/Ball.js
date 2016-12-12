@@ -28,9 +28,16 @@ define(["require", "exports", "./NatrueObject"], function (require, exports, Nat
             var result = system.quadTree.retrieve(this);
             for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
                 var ball = result_1[_i];
-                if (this.location.x + this.radius > ball.location.x + ball.radius) {
+                if (ball == undefined) {
+                    continue;
+                }
+                var dis = this.location.copySub(ball.location);
+                var sumRadius = this.radius + ball.radius;
+                if (sumRadius >= dis.getMag()) {
                     this.velocity.x *= -1;
+                    this.velocity.y *= -1;
                     ball.velocity.x *= -1;
+                    ball.velocity.y *= -1;
                 }
             }
             return this;
