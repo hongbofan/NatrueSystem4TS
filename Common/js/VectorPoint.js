@@ -13,6 +13,46 @@ define(["require", "exports"], function (require, exports) {
             this.y += p.y;
             return this;
         };
+        VectorPoint.prototype.sub = function (p) {
+            this.x -= p.x;
+            this.y -= p.y;
+        };
+        VectorPoint.prototype.mult = function (n) {
+            this.x *= n;
+            this.y *= n;
+        };
+        VectorPoint.prototype.div = function (n) {
+            if (n != 0) {
+                this.x /= n;
+                this.y /= n;
+            }
+        };
+        VectorPoint.prototype.mag = function () {
+        };
+        VectorPoint.prototype.setMag = function () {
+        };
+        VectorPoint.prototype.normalize = function () {
+        };
+        VectorPoint.prototype.limit = function () {
+        };
+        VectorPoint.prototype.heading2D = function () {
+        };
+        VectorPoint.prototype.rotate = function () {
+        };
+        VectorPoint.prototype.lerp = function () {
+        };
+        VectorPoint.prototype.dist = function () {
+        };
+        VectorPoint.prototype.angleBetween = function () {
+        };
+        VectorPoint.prototype.dot = function () {
+        };
+        VectorPoint.prototype.cross = function () {
+        };
+        VectorPoint.prototype.random2D = function () {
+        };
+        VectorPoint.prototype.random3D = function () {
+        };
         return VectorPoint;
     }());
     exports.VectorPoint = VectorPoint;
