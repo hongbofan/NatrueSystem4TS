@@ -3,7 +3,8 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
     var system;
     var paint;
     var balls = [];
-    var number = 8;
+    var number = 5;
+    var pause = false;
     init();
     action();
     function init() {
@@ -25,14 +26,19 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
         system.pushObjects(balls);
         console.log(system.quadTree);
     }
+    system.canvas.onmousedown = function (ev) {
+        pause = !pause;
+    };
     function action() {
-        system.clear();
-        system.quadTree.refresh(null);
-        for (var _i = 0, balls_1 = balls; _i < balls_1.length; _i++) {
-            var ball = balls_1[_i];
-            ball.collisionDetection(system);
-            ball.move();
-            ball.display(paint);
+        if (pause) {
+            system.clear();
+            system.quadTree.refresh(null);
+            balls[0].collisionDetection(system);
+            balls[0].move();
+            for (var _i = 0, balls_1 = balls; _i < balls_1.length; _i++) {
+                var ball = balls_1[_i];
+                ball.display(paint);
+            }
         }
         setTimeout(action, 0);
     }

@@ -26,17 +26,16 @@ define(["require", "exports", "./NatrueObject"], function (require, exports, Nat
                 this.velocity.y *= -1;
             }
             var result = system.quadTree.retrieve(this);
+            console.log(result.length);
             for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
                 var ball = result_1[_i];
                 var dis = this.location.copySub(ball.location);
                 var sumRadius = this.radius + ball.radius;
                 if (dis.getMag() != 0 && sumRadius >= dis.getMag()) {
                     dis.normalize();
-                    console.log("start:" + this.velocity.getMag());
-                    console.log("dis.x:" + dis.x + ",dis.y:" + dis.y);
-                    this.velocity.x = this.velocity.getMag() * dis.x;
-                    this.velocity.y = this.velocity.getMag() * dis.y;
-                    console.log("end:" + this.velocity.getMag());
+                    var mag = this.velocity.getMag();
+                    this.velocity.x = mag * dis.x;
+                    this.velocity.y = mag * dis.y;
                 }
             }
             return this;

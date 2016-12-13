@@ -39,11 +39,14 @@ export class QuadTree {
                     index = this.getIndex(ball);
                     // 如果物体不属于该象限，则将该矩形重新插入
                     if (!this.isInner(ball, this.bounds)) {
-                        root.insert(<Ball>this.objects.splice(i, 1)[0]);
+                        console.log("reinsert:"+(index[0]+1));
+                        console.log(ball.location.x + ball.radius+","+this.bounds.x+this.bounds+this.bounds.width);
+                        //root.insert(<Ball>this.objects.splice(i, 1)[0]);
                     }
                     // 如果矩形属于该象限 且 该象限具有子象限，则
                     // 将该矩形安插到子象限中
                     else if (this.nodes.length) {
+                        console.log("reinsertSplit");
                         for (let i of index) {
                             this.nodes[i].insert(<Ball>this.objects.splice(i, 1)[0]);
                         }

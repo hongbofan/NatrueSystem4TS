@@ -24,7 +24,7 @@ export class Ball extends NatrueObject{
         this.velocity.y *= -1;
       }
       let result = system.quadTree.retrieve(this);
-      //console.log(result);
+      console.log(result.length);
       for(let ball of result){
         let dis = this.location.copySub(ball.location);
         //console.log("dis:"+ dis.x);
@@ -33,19 +33,20 @@ export class Ball extends NatrueObject{
         if(dis.getMag() != 0 && sumRadius >= dis.getMag()){
             //let subVelocity = this.velocity.copySub(ball.velocity);
             dis.normalize();
-            console.log("start:"+this.velocity.getMag());
+            //console.log("start:"+this.velocity.getMag());
 
-            console.log("dis.x:"+dis.x+",dis.y:"+dis.y);
+            //console.log("dis.x:"+dis.x+",dis.y:"+dis.y);
             //this.acceleration.x += this.acceleration.x;
-            this.velocity.x = this.velocity.getMag()*dis.x;
+            let mag = this.velocity.getMag();
+            this.velocity.x = mag*dis.x;
             //this.acceleration.y += this.acceleration.y;
-            this.velocity.y = this.velocity.getMag()*dis.y;
+            this.velocity.y = mag*dis.y;
 
             //ball.acceleration.x += ball.acceleration.x;
             //ball.velocity.x *= -1;
             //ball.acceleration.y += ball.acceleration.y;
             //ball.velocity.y *= -1;
-            console.log("end:"+this.velocity.getMag());
+            //console.log("end:"+this.velocity.getMag());
         }
       }
       return this;

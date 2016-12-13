@@ -8,10 +8,11 @@ import {Util} from "../Common/js/Util"
 let system:System;
 let paint:Paint;
 let balls:NatrueObject[] = [];
-let number = 8;
-
+let number = 5;
+let pause = false;
 init();
 action();
+
 
 function init(){
   system = new System(<HTMLCanvasElement>document.getElementById("canvas"));
@@ -43,15 +44,22 @@ function init(){
   system.pushObjects(balls);
   console.log(system.quadTree);
 }
+system.canvas.onmousedown = function(ev:MouseEvent){
+    pause = !pause;
+}
 function action(){
   //console.log(system.quadTree);
-  system.clear();
-  system.quadTree.refresh(null);
-  //console.log(system.quadTree);
-  for(let ball of balls){
-    ball.collisionDetection(system);
-    ball.move();
-    ball.display(paint);
+  if(pause){
+    system.clear();
+    system.quadTree.refresh(null);
+    //console.log(system.quadTree);
+    balls[0].collisionDetection(system);
+    balls[0].move();
+    for(let ball of balls){
+      // ball.collisionDetection(system);
+      // ball.move();
+      ball.display(paint);
+    }
   }
   setTimeout(action,0);
 }

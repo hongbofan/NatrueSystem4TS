@@ -20,9 +20,11 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
                     else {
                         index = this.getIndex(ball);
                         if (!this.isInner(ball, this.bounds)) {
-                            root.insert(this.objects.splice(i, 1)[0]);
+                            console.log("reinsert:" + (index[0] + 1));
+                            console.log(ball.location.x + ball.radius + "," + this.bounds.x + this.bounds + this.bounds.width);
                         }
                         else if (this.nodes.length) {
+                            console.log("reinsertSplit");
                             for (var _i = 0, index_1 = index; _i < index_1.length; _i++) {
                                 var i_1 = index_1[_i];
                                 this.nodes[i_1].insert(this.objects.splice(i_1, 1)[0]);
