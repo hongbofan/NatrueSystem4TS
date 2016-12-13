@@ -3,22 +3,27 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
     var system;
     var paint;
     var balls = [];
-    var number = 20;
+    var number = 8;
     init();
     action();
     function init() {
         system = new System_1.System(document.getElementById("canvas"));
         paint = new Paint_1.Paint(system.canvas.getContext("2d"));
         paint.setFillStyle('rgba(192, 80, 77, 0.8)');
+        var radius = 30;
+        var location = new VectorPoint_1.VectorPoint(40, 80);
+        var velocity = new VectorPoint_1.VectorPoint(10, 0);
+        var acceleration = new VectorPoint_1.VectorPoint(0, 0);
+        var ball1 = new Ball_1.Ball(location, velocity, acceleration, radius);
+        balls.push(ball1);
         for (var i = 0; i < number; i++) {
-            var radius = Util_1.Util.randomNumber(10, 20);
-            var location_1 = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(radius, system.width - radius), Util_1.Util.randomNumber(radius, system.height - radius));
-            var velocity = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(-0.5, 0.5), Util_1.Util.randomNumber(-0.5, 0.5));
-            var acceleration = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(-0.01, 0.01), Util_1.Util.randomNumber(-0.01, 0.01));
-            var ball = new Ball_1.Ball(location_1, velocity, acceleration, radius);
-            balls.push(ball);
+            var location2 = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(radius, system.width - radius), Util_1.Util.randomNumber(radius, system.height - radius));
+            var velocity2 = new VectorPoint_1.VectorPoint(0, 0);
+            var ball2 = new Ball_1.Ball(location2, velocity2, acceleration, radius);
+            balls.push(ball2);
         }
         system.pushObjects(balls);
+        console.log(system.quadTree);
     }
     function action() {
         system.clear();

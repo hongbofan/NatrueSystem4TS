@@ -41,6 +41,9 @@ define(["require", "exports"], function (require, exports) {
             if (m != 0) {
                 return this.div(m);
             }
+            else {
+                return this.div(999999999999999);
+            }
         };
         VectorPoint.prototype.limit = function (n) {
             if (this.mag > n) {

@@ -51,6 +51,8 @@ export class VectorPoint {
     let m = this.getMag();
     if(m!=0){
       return this.div(m);
+    }else{
+      return this.div(999999999999999);
     }
 
   }

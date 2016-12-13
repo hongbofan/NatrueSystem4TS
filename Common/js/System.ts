@@ -18,6 +18,7 @@ export class System {
   pushObjects(natrueObjects:NatrueObject[]){
 
     for(let natrueObject of natrueObjects){
+      //console.log(natrueObject);
       this.quadTree.insert(<Ball>natrueObject);
     }
   }

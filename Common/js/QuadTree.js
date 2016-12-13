@@ -13,19 +13,13 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
             var index = [];
             root = root || this;
             if (this.objects.length) {
-                console.log(this.objects.length);
                 for (var i = this.objects.length - 1; i >= 0; i--) {
-                    var obj = this.objects[i];
-                    console.log(i + "," + obj);
-                    console.log(obj == undefined);
-                    if (obj == undefined) {
-                        continue;
-                    }
+                    var ball = this.objects[i];
                     if (false) {
                     }
                     else {
-                        index = this.getIndex(obj);
-                        if (!this.isInner(obj, this.bounds)) {
+                        index = this.getIndex(ball);
+                        if (!this.isInner(ball, this.bounds)) {
                             root.insert(this.objects.splice(i, 1)[0]);
                         }
                         else if (this.nodes.length) {
@@ -67,18 +61,19 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
                 for (var _i = 0, index_3 = index; _i < index_3.length; _i++) {
                     var i = index_3[_i];
                     this.nodes[i].insert(ball);
-                    return;
                 }
+                return;
             }
             this.objects.push(ball);
             if (!this.nodes.length) {
                 if (this.objects.length > this.MAX_OBJECTS && this.level < this.MAX_LEVELS) {
                     this.split();
                     for (var i = this.objects.length - 1; i >= 0; i--) {
-                        index = this.getIndex(this.objects[i]);
+                        var ball_1 = this.objects.pop();
+                        index = this.getIndex(ball_1);
                         for (var _a = 0, index_4 = index; _a < index_4.length; _a++) {
                             var j = index_4[_a];
-                            this.nodes[j].insert(this.objects.splice(i, 1)[0]);
+                            this.nodes[j].insert(ball_1);
                         }
                     }
                 }
