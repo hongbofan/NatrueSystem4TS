@@ -2,14 +2,18 @@ import {NatrueObject} from "./NatrueObject"
 import {VectorPoint} from "./VectorPoint"
 import {Paint} from "./Paint"
 import {System} from "./System"
+import {Style} from "./Style"
 
 export class Ball extends NatrueObject{
     radius:number;//半径
-    constructor(location:VectorPoint,velocity:VectorPoint,acceleration:VectorPoint,radius:number){
+    style:Style;
+    constructor(location:VectorPoint,velocity:VectorPoint,acceleration:VectorPoint,radius:number,style:Style){
       super(location,velocity,acceleration);
       this.radius = radius;
+      this.style = style;
     }
     display(paint:Paint){
+      paint.setFillStyle(this.style.getRGBA());
       paint.beginPath().arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI).fill();
       return this;
     }
@@ -17,7 +21,7 @@ export class Ball extends NatrueObject{
     collisionDetection(system:System){
 
       let result = system.quadTree.retrieve(this);
-      console.log(result.length);
+      //console.log(result.length);
       for(let ball of result){
         let dis = this.location.copySub(ball.location);
         //console.log("dis:"+ dis.x);
@@ -39,7 +43,7 @@ export class Ball extends NatrueObject{
             //ball.velocity.x *= -1;
             //ball.acceleration.y += ball.acceleration.y;
             //ball.velocity.y *= -1;
-            console.log("end:"+this.velocity.getMag());
+            //console.log("end:"+this.velocity.getMag());
         }
       }
 
@@ -51,6 +55,7 @@ export class Ball extends NatrueObject{
         this.velocity.y += this.acceleration.y;//同上
         this.velocity.y *= -1;
       }
+      //console.log(this.velocity.x+","+this.velocity.y);
       return this;
     }
 }
