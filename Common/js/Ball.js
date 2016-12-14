@@ -17,14 +17,6 @@ define(["require", "exports", "./NatrueObject"], function (require, exports, Nat
             return this;
         };
         Ball.prototype.collisionDetection = function (system) {
-            if (this.location.x + this.radius > system.width || this.location.x - this.radius < 0) {
-                this.velocity.x += this.acceleration.x;
-                this.velocity.x *= -1;
-            }
-            if (this.location.y + this.radius > system.height || this.location.y - this.radius < 0) {
-                this.velocity.y += this.acceleration.y;
-                this.velocity.y *= -1;
-            }
             var result = system.quadTree.retrieve(this);
             console.log(result.length);
             for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
@@ -36,7 +28,16 @@ define(["require", "exports", "./NatrueObject"], function (require, exports, Nat
                     var mag = this.velocity.getMag();
                     this.velocity.x = mag * dis.x;
                     this.velocity.y = mag * dis.y;
+                    console.log("end:" + this.velocity.getMag());
                 }
+            }
+            if (this.location.x + this.radius > system.width || this.location.x - this.radius < 0) {
+                this.velocity.x += this.acceleration.x;
+                this.velocity.x *= -1;
+            }
+            if (this.location.y + this.radius > system.height || this.location.y - this.radius < 0) {
+                this.velocity.y += this.acceleration.y;
+                this.velocity.y *= -1;
             }
             return this;
         };

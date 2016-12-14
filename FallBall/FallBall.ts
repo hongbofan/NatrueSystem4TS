@@ -8,7 +8,7 @@ import {Util} from "../Common/js/Util"
 let system:System;
 let paint:Paint;
 let balls:NatrueObject[] = [];
-let number = 5;
+let number = 100;
 let pause = false;
 init();
 action();

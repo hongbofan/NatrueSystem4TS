@@ -3,7 +3,7 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
     var system;
     var paint;
     var balls = [];
-    var number = 5;
+    var number = 100;
     var pause = false;
     init();
     action();

@@ -21,13 +21,13 @@ export class QuadTree {
         this.nodes = []
         this.level = level
         this.bounds = bounds
-        this.MAX_OBJECTS = 10
+        this.MAX_OBJECTS = 5
         this.MAX_LEVELS = 5
     }
     refresh(root: QuadTree) {
         let index = [];
         root = root || this;
-        if (this.objects.length) {
+        //if (this.objects.length) {
             //console.log(this.objects.length);
             for (let i = this.objects.length - 1; i >= 0; i--) {
                 let ball = <Ball>this.objects[i];
@@ -39,9 +39,12 @@ export class QuadTree {
                     index = this.getIndex(ball);
                     // 如果物体不属于该象限，则将该矩形重新插入
                     if (!this.isInner(ball, this.bounds)) {
-                        console.log("reinsert:"+(index[0]+1));
-                        console.log(ball.location.x + ball.radius+","+this.bounds.x+this.bounds+this.bounds.width);
-                        //root.insert(<Ball>this.objects.splice(i, 1)[0]);
+                        for(let j of index){
+                          //console.log("reinsert:"+(j+1)+",length:"+this.objects.length);
+                        }
+                        //console.log(ball.location.x + ball.radius+","+(this.bounds.x+this.bounds.width));
+                        root.insert(<Ball>this.objects.splice(i, 1)[0]);
+                        //console.log("reinsert finish:"+i+",length:"+this.objects.length);
                     }
                     // 如果矩形属于该象限 且 该象限具有子象限，则
                     // 将该矩形安插到子象限中
@@ -53,7 +56,7 @@ export class QuadTree {
                     }
                 }
             }
-        }
+        //}
         // 递归刷新子象限
         for (let node of this.nodes) {
             node.refresh(root);
@@ -61,15 +64,16 @@ export class QuadTree {
     }
     // 判断物体是否在象限范围内
     isInner(ball: Ball, bounds: Rectangle) {
-        return ball.location.x - ball.radius >= bounds.x &&
-            ball.location.x + ball.radius <= bounds.x + bounds.width &&
-            ball.location.y - ball.radius >= bounds.y &&
-            ball.location.y + ball.radius <= bounds.y + bounds.height;
+        return (ball.location.x - ball.radius) >= bounds.x &&
+            (ball.location.x + ball.radius) <= (bounds.x + bounds.width) &&
+            (ball.location.y - ball.radius) >= bounds.y &&
+            (ball.location.y + ball.radius) <= (bounds.y + bounds.height);
     }
     //检索所有可能碰撞的物体
     retrieve(ball: Ball) {
         let result = [];//递归加载可能碰撞的objects
         let index;//象限;
+
         if (this.nodes.length) {//如果该节点有子节点
             index = this.getIndex(ball);
             for (let i of index) {
@@ -92,8 +96,11 @@ export class QuadTree {
             }
             return;
         }
-        //该节点没有四个子节点，都加到该节点的objects里
-        this.objects.push(ball);
+        //该节点没有四个子节点且该节点没有包含该球，都加到该节点的objects里
+        if(this.objects.indexOf(ball) == -1){
+          this.objects.push(ball);
+        }
+
         if (!this.nodes.length) {
             if (this.objects.length > this.MAX_OBJECTS && this.level < this.MAX_LEVELS) {//判断是否可分裂
                 this.split();
@@ -118,44 +125,57 @@ export class QuadTree {
         let left = (ball.location.x + ball.radius) <= verticalMidpoint;//根据X判断物体是否在三四象限
         let right = (ball.location.x - ball.radius) >= verticalMidpoint;//根据X判断物体是否在一二象限
 
-        if (top) {
-            if (right) {
-                index.push(0);//象限1
-            }
-            else if (left) {
-                index.push(3);//象限4
-            } else {
-                //横跨1、4象限
-                index.push(0);
-                index.push(3);
-            }
-        } else if (bottom) {
-            if (right) {
-                index.push(1);//象限2
-            } else if (left) {
-                index.push(2);//象限3
-            } else {
-                //横跨2、3象限
-                index.push(1);
-                index.push(2);
-            }
-        } else {
-            if (right) {
-                //横跨1、2象限
-                index.push(0);
-                index.push(1);
-            } else if (left) {
-                //横跨3、4象限
-                index.push(2);
-                index.push(3);
-            } else {
-                //横跨全象限
-                index.push(0);
-                index.push(1);
-                index.push(2);
-                index.push(3);
-            }
+        if(!(bottom||left)){
+          index.push(0);//象限1
         }
+        if(!(top||left)){
+          index.push(1);//象限2
+        }
+        if(!(top||right)){
+          index.push(2);//象限3
+        }
+        if(!(bottom||right)){
+          index.push(3);//象限4
+        }
+
+        // if (top) {
+        //     if (right) {
+        //         index.push(0);//象限1
+        //     }
+        //     else if (left) {
+        //         index.push(3);//象限4
+        //     } else {
+        //         //横跨1、4象限
+        //         index.push(0);
+        //         index.push(3);
+        //     }
+        // } else if (bottom) {
+        //     if (right) {
+        //         index.push(1);//象限2
+        //     } else if (left) {
+        //         index.push(2);//象限3
+        //     } else {
+        //         //横跨2、3象限
+        //         index.push(1);
+        //         index.push(2);
+        //     }
+        // } else {
+        //     if (right) {
+        //         //横跨1、2象限
+        //         index.push(0);
+        //         index.push(1);
+        //     } else if (left) {
+        //         //横跨3、4象限
+        //         index.push(2);
+        //         index.push(3);
+        //     } else {
+        //         //横跨全象限
+        //         index.push(0);
+        //         index.push(1);
+        //         index.push(2);
+        //         index.push(3);
+        //     }
+        // }
         return index;
     }
     //清除四叉树所有节点的所有对象

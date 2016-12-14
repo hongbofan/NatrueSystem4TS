@@ -15,14 +15,7 @@ export class Ball extends NatrueObject{
     }
     //系统碰撞检测
     collisionDetection(system:System){
-      if(this.location.x + this.radius > system.width || this.location.x - this.radius< 0){
-        this.velocity.x += this.acceleration.x;//碰撞的时候该速度只改变方向，不改变大小
-        this.velocity.x *= -1;
-      }
-      if(this.location.y + this.radius> system.height || this.location.y - this.radius < 0){
-        this.velocity.y += this.acceleration.y;//同上
-        this.velocity.y *= -1;
-      }
+
       let result = system.quadTree.retrieve(this);
       console.log(result.length);
       for(let ball of result){
@@ -46,8 +39,17 @@ export class Ball extends NatrueObject{
             //ball.velocity.x *= -1;
             //ball.acceleration.y += ball.acceleration.y;
             //ball.velocity.y *= -1;
-            //console.log("end:"+this.velocity.getMag());
+            console.log("end:"+this.velocity.getMag());
         }
+      }
+
+      if(this.location.x + this.radius > system.width || this.location.x - this.radius< 0){
+        this.velocity.x += this.acceleration.x;//碰撞的时候该速度只改变方向，不改变大小
+        this.velocity.x *= -1;
+      }
+      if(this.location.y + this.radius> system.height || this.location.y - this.radius < 0){
+        this.velocity.y += this.acceleration.y;//同上
+        this.velocity.y *= -1;
       }
       return this;
     }
