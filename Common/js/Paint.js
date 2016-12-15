@@ -4,6 +4,11 @@ define(["require", "exports"], function (require, exports) {
         function Paint(context2D) {
             this.context2D = context2D;
         }
+        Paint.prototype.rotate = function (angle, midX, midY) {
+            this.context2D.translate(midX, midY);
+            this.context2D.rotate(angle * Math.PI / 180);
+            this.context2D.translate(-midX, -midY);
+        };
         Paint.prototype.arc = function (x, y, radius, startAngle, endAngle) {
             this.context2D.arc(x, y, radius, startAngle, endAngle);
             return this;

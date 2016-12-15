@@ -23,6 +23,6 @@ export class System {
     }
   }
   clear(){
-    this.canvas.getContext("2d").clearRect(0,0,this.width,this.height);
+    this.canvas.getContext('2d').clearRect(0,0,this.width,this.height);
   }
 }

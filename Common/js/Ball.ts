@@ -5,8 +5,10 @@ import {System} from "./System"
 import {Style} from "./Style"
 
 export class Ball extends NatrueObject{
+    mass:number;//质量
     radius:number;//半径
-    style:Style;
+    style:Style;//样式
+
     constructor(location:VectorPoint,velocity:VectorPoint,acceleration:VectorPoint,radius:number,style:Style){
       super(location,velocity,acceleration);
       this.radius = radius;
@@ -44,6 +46,7 @@ export class Ball extends NatrueObject{
             //ball.acceleration.y += ball.acceleration.y;
             //ball.velocity.y *= -1;
             //console.log("end:"+this.velocity.getMag());
+            this.HP--;
         }
       }
 

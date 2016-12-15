@@ -14,27 +14,25 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
             root = root || this;
             for (var i = this.objects.length - 1; i >= 0; i--) {
                 var ball = this.objects[i];
-                if (false) {
+                if (ball.destroy) {
+                    this.objects.splice(i, 1);
                 }
                 else {
                     index = this.getIndex(ball);
                     if (!this.isInner(ball, this.bounds)) {
-                        for (var _i = 0, index_1 = index; _i < index_1.length; _i++) {
-                            var j = index_1[_i];
-                        }
                         root.insert(this.objects.splice(i, 1)[0]);
                     }
                     else if (this.nodes.length) {
                         console.log("reinsertSplit");
-                        for (var _a = 0, index_2 = index; _a < index_2.length; _a++) {
-                            var i_1 = index_2[_a];
+                        for (var _i = 0, index_1 = index; _i < index_1.length; _i++) {
+                            var i_1 = index_1[_i];
                             this.nodes[i_1].insert(this.objects.splice(i_1, 1)[0]);
                         }
                     }
                 }
             }
-            for (var _b = 0, _c = this.nodes; _b < _c.length; _b++) {
-                var node = _c[_b];
+            for (var _a = 0, _b = this.nodes; _a < _b.length; _a++) {
+                var node = _b[_a];
                 node.refresh(root);
             }
         };
@@ -49,8 +47,8 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
             var index;
             if (this.nodes.length) {
                 index = this.getIndex(ball);
-                for (var _i = 0, index_3 = index; _i < index_3.length; _i++) {
-                    var i = index_3[_i];
+                for (var _i = 0, index_2 = index; _i < index_2.length; _i++) {
+                    var i = index_2[_i];
                     result = result.concat(this.nodes[i].retrieve(ball));
                 }
             }
@@ -60,8 +58,8 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
             var index;
             if (this.nodes.length) {
                 index = this.getIndex(ball);
-                for (var _i = 0, index_4 = index; _i < index_4.length; _i++) {
-                    var i = index_4[_i];
+                for (var _i = 0, index_3 = index; _i < index_3.length; _i++) {
+                    var i = index_3[_i];
                     this.nodes[i].insert(ball);
                 }
                 return;
@@ -75,8 +73,8 @@ define(["require", "exports", "./Rectangle"], function (require, exports, Rectan
                     for (var i = this.objects.length - 1; i >= 0; i--) {
                         var ball_1 = this.objects.pop();
                         index = this.getIndex(ball_1);
-                        for (var _a = 0, index_5 = index; _a < index_5.length; _a++) {
-                            var j = index_5[_a];
+                        for (var _a = 0, index_4 = index; _a < index_4.length; _a++) {
+                            var j = index_4[_a];
                             this.nodes[j].insert(ball_1);
                         }
                     }

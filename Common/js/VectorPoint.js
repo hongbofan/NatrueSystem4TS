@@ -6,8 +6,13 @@ define(["require", "exports"], function (require, exports) {
             this.y = y;
             this.mag = this.getMag();
         }
+        VectorPoint.prototype.polar2Rectangular = function (angle, p) {
+            this.x = Math.cos(angle) * p;
+            this.y = Math.sin(angle) * p;
+            return this;
+        };
         VectorPoint.prototype.display = function (paint) {
-            paint.beginPath().arc(this.x, this.y, 10, 0, 2 * Math.PI).fill();
+            paint.beginPath().arc(this.x, this.y, 5, 0, 2 * Math.PI).fill();
         };
         VectorPoint.prototype.add = function (p) {
             this.x += p.x;

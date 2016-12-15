@@ -1,4 +1,4 @@
-define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System", "../Common/js/Paint", "../Common/js/Ball", "../Common/js/Util", "../Common/js/Style"], function (require, exports, VectorPoint_1, System_1, Paint_1, Ball_1, Util_1, Style_1) {
+define(["require", "exports", "../Common/js/System", "../Common/js/Paint", "../Common/js/Rectangle", "../Common/js/BallFactory"], function (require, exports, System_1, Paint_1, Rectangle_1, BallFactory_1) {
     "use strict";
     var system;
     var paint;
@@ -10,15 +10,16 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
     function init() {
         system = new System_1.System(document.getElementById("canvas"));
         paint = new Paint_1.Paint(system.canvas.getContext("2d"));
-        for (var i = 0; i < number; i++) {
-            var radius = Util_1.Util.randomNumber(10, 20);
-            var location_1 = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(radius, system.width - radius), Util_1.Util.randomNumber(radius, system.height - radius));
-            var velocity = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(-0.5, 0.5), Util_1.Util.randomNumber(-0.5, 0.5));
-            var acceleration = new VectorPoint_1.VectorPoint(Util_1.Util.randomNumber(-0.01, 0.01), Util_1.Util.randomNumber(-0.01, 0.01));
-            var style = new Style_1.Style(Math.floor(Util_1.Util.randomNumber(0, 255)), Math.floor(Util_1.Util.randomNumber(0, 255)), Math.floor(Util_1.Util.randomNumber(0, 255)), 0.7);
-            var ball = new Ball_1.Ball(location_1, velocity, acceleration, radius, style);
-            balls.push(ball);
-        }
+        balls = new BallFactory_1.BallFactory()
+            .makeBalls(number)
+            .randomRadius(10, 20)
+            .randomLocation(new Rectangle_1.Rectangle(0, 0, system.width, system.height))
+            .randomVelocity(-0.5, 0.5, -0.5, 0.5)
+            .randomAcceleration(-0.01, 0.01, -0.01, 0.01)
+            .randomMass(10, 20)
+            .randomHP(1, 1)
+            .randomStyle()
+            .balls;
         system.pushObjects(balls);
         console.log(system.quadTree);
     }
@@ -28,15 +29,31 @@ define(["require", "exports", "../Common/js/VectorPoint", "../Common/js/System",
     function action() {
         if (pause) {
             system.clear();
+            clearDestroy();
             system.quadTree.refresh(null);
             for (var _i = 0, balls_1 = balls; _i < balls_1.length; _i++) {
                 var ball = balls_1[_i];
                 ball.collisionDetection(system);
+            }
+            for (var _a = 0, balls_2 = balls; _a < balls_2.length; _a++) {
+                var ball = balls_2[_a];
                 ball.move();
                 ball.display(paint);
             }
         }
-        setTimeout(action, 0);
+        if (balls.length > 0) {
+            setTimeout(action, 1);
+        }
+    }
+    function clearDestroy() {
+        for (var i = balls.length - 1; i >= 0; i--) {
+            if (balls[i].HP <= 0) {
+                balls[i].destroy = true;
+            }
+            if (balls[i].destroy) {
+                balls.splice(i, 1);
+            }
+        }
     }
 });
 //# sourceMappingURL=FallBall.js.map

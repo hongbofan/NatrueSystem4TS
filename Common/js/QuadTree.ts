@@ -33,18 +33,13 @@ export class QuadTree {
                 let ball = <Ball>this.objects[i];
                 //console.log(i+","+obj);
                 //console.log(obj == undefined);
-                if (false) {//死亡销毁
-                    //this.objects.splice(i,1);
+                if (ball.destroy) {//死亡销毁
+                    this.objects.splice(i,1);
                 } else {
                     index = this.getIndex(ball);
                     // 如果物体不属于该象限，则将该矩形重新插入
                     if (!this.isInner(ball, this.bounds)) {
-                        for(let j of index){
-                          //console.log("reinsert:"+(j+1)+",length:"+this.objects.length);
-                        }
-                        //console.log(ball.location.x + ball.radius+","+(this.bounds.x+this.bounds.width));
                         root.insert(<Ball>this.objects.splice(i, 1)[0]);
-                        //console.log("reinsert finish:"+i+",length:"+this.objects.length);
                     }
                     // 如果矩形属于该象限 且 该象限具有子象限，则
                     // 将该矩形安插到子象限中

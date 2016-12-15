@@ -8,9 +8,14 @@ export class VectorPoint {
     this.y = y;
     this.mag = this.getMag();
   }
+  polar2Rectangular(angle:number,p:number){
+    this.x = Math.cos(angle)*p;
+    this.y = Math.sin(angle)*p;
+    return this;
+  }
   //画自身
   display(paint:Paint){
-    paint.beginPath().arc(this.x, this.y, 10, 0, 2 * Math.PI).fill();
+    paint.beginPath().arc(this.x, this.y, 5, 0, 2 * Math.PI).fill();
   }
   //向量加法
   add(p:VectorPoint){

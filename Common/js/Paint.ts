@@ -4,6 +4,11 @@ export class Paint{
   constructor(context2D:CanvasRenderingContext2D){
     this.context2D = context2D;
   }
+  rotate(angle:number,midX:number,midY:number){
+    this.context2D.translate(midX,midY);
+    this.context2D.rotate(angle*Math.PI/180);
+    this.context2D.translate(-midX,-midY);
+  }
   //画弧
   arc(x:number, y:number, radius:number, startAngle:number, endAngle:number){
     this.context2D.arc(x,y,radius,startAngle,endAngle);

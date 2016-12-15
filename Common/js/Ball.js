@@ -29,6 +29,7 @@ define(["require", "exports", "./NatrueObject"], function (require, exports, Nat
                     var mag = this.velocity.getMag();
                     this.velocity.x = mag * dis.x;
                     this.velocity.y = mag * dis.y;
+                    this.HP--;
                 }
             }
             if (this.location.x + this.radius > system.width || this.location.x - this.radius < 0) {

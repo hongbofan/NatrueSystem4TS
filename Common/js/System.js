@@ -14,7 +14,7 @@ define(["require", "exports", "./QuadTree", "./Rectangle"], function (require, e
             }
         };
         System.prototype.clear = function () {
-            this.canvas.getContext("2d").clearRect(0, 0, this.width, this.height);
+            this.canvas.getContext('2d').clearRect(0, 0, this.width, this.height);
         };
         return System;
     }());
